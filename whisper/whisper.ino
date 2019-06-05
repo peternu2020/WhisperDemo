@@ -5,7 +5,7 @@ const char* ssid = "Device-Northwestern";
 
 
 int status = WL_IDLE_STATUS;
-IPAddress server(129,105,10,137); 
+IPAddress server(129,105,10,218); 
 
 // Define the Pin Numbers
 #define TRIGGER_PIN 5
