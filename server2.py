@@ -64,19 +64,6 @@ class obj:
 
 objects = []
 def initialize_everything():
-    '''
-    catobj = obj(name='the cat')
-    catobj.who='The cat was created by Hyun Jung Jun  an art student at Northwestern University'
-    catobj.who2 = 'Northwestern University offers Masters degrees in Art Theory and practice, this is one of the masters projects.'
-    catobj.what = 'The cat is a flashe  linen  thread piece. Flashe is a vinyl-based  which can be used to create paintings on various mediums  such as linen and thread.'
-    catobj.what2 = 'Flashe is a type of pigment that can be diluted with water. It is similar to acrylic paint but less thick. The material is linen, it is thinner than canvas.'
-    catobj.where = 'The cat was created in Evanston  IL'
-    catobj.where2 = 'The cat image was done specifically at Northwestern University'
-    catobj.why = 'The cat was created for a thesis project'
-    catobj.why2 = 'Northwestern University offers Masters degrees in Art Theory and practice, this is one of the masters projects.'
-    catobj.when = 'The cat was created in 2019'
-    catobj.when2 = 'The cat was completed winter quarter and put on display in the spring'
-    objects.append(catobj)'''
     cruxobj = obj(name = 'the crucifixion')
     cruxobj.who= 'The crucifixion was created by Naddo Ceccarelli'
     cruxobj.who2 = 'Naddo Ceccarelli was a gifted pupil of the leading Sienese painter Simone Martini. Ceccarelli was particularly skilled in suggesting the shine of metalwork through his use of tempera'

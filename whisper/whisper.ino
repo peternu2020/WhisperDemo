@@ -47,6 +47,7 @@ void loop() {
     // Make a HTTP request:
     client.println(payload);
   }
+  delay(100);
 }
 
 void wifiConnect() {

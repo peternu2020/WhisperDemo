@@ -76,18 +76,6 @@ def initialize_everything():
     catobj.when = 'The cat was created in 2019'
     catobj.when2 = 'The cat was completed winter quarter and put on display in the spring'
     objects.append(catobj)
-#     cruxobj = obj(name = 'the crucifixion')
-#     cruxobj.who= 'The crucifixion was created by Naddo Ceccarelli'
-#     cruxobj.who2 = 'Naddo Ceccarelli was a gifted pupil of the leading Sienese painter Simone Martini. Ceccarelli was particularly skilled in suggesting the shine of metalwork through his use of tempera'
-#     cruxobj.what = 'The crucifixion is a Tempera and gold on panel  gold leaf is gilded onto the wood panel before inscription and detailing'
-#     cruxobj.what2 = 'The crucifixion is a depiction of Jesus Christs death as spoken about in the Bible'
-#     cruxobj.where = 'The crucifixion was created in Siena Italy'
-#     cruxobj.where2 = 'It was created In siena after he returned from Avignon in 1330'
-#     cruxobj.why = 'The crucfixion is a depiction of Christs death  used in many Churches. These panel works were typically used in reliquaries'
-#     cruxobj.why2 = 'Ceccarelli was particularly skilled in suggesting the shine of metalwork through his use of tempera. He carefully layered his paint over the gold ground, which he enriched with a variety of tooled and incised designs. Ceccarelli was apt at capturing the gleam of chain mail and the arabesques of damask'
-#     cruxobj.when = 'The crucifixion was created in the 14th century  circa 1350-1359'
-#         cruxobj.when2 = 'experts are not sure exactly when but it is estimated that it was around 1352'
-# objects.append(cruxobj)
 
 initialize_everything()
 # from server.py
