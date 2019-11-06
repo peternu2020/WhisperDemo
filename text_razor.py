@@ -16,22 +16,20 @@ topic_tags = []
 for audio_text in audio_texts:
     response = client.analyze(audio_text)
     audio_tags =[]
-    for topic in response.topics()[:10]:
-        if topic.score > 0.3:
+    for topic in response.topics():
+        if topic.score > 0:
             audio_tags.append(topic.label)
     topic_tags.append(audio_tags)
 
-user_question = "when was the crucifixion created?"
+user_question = "when was the crucifixion created"
 response = client.analyze(user_question)
 question_tags =[]
 for topic in response.topics():
-    print()
-    question_tags.append(topic.label)
+    if topic.score > 0:
+        question_tags.append(topic.label)
 
 similarities =[]
-print(question_tags)
 for audio_tags in topic_tags:
-    print(audio_tags)
     similarities.append(difflib.SequenceMatcher(None,audio_tags,question_tags).ratio())
 
 print(similarities)
