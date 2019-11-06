@@ -19,7 +19,6 @@ def audio_to_text(fname):
         qst = r.recognize_google(audio)
     except sr.UnknownValueError:
         qst = None
-    print(qst)
     return qst
 
 def tokenize_sentences(document):
@@ -66,5 +65,10 @@ def preprocess(text):
         print("\n")
     return lda_model
 
-txt = audio_to_text('crucifixion1.wav')
-print(preprocess(txt))
+# txt = audio_to_text('crucifixion1.wav')
+# print(preprocess(txt))
+
+print(audio_to_text('crucifixion1.wav'))
+print(audio_to_text('crucifixion2.wav'))
+print(audio_to_text('crucifixion3.wav'))
+print(audio_to_text('crucifixion4.wav'))

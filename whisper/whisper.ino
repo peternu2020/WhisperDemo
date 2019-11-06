@@ -5,16 +5,16 @@ const char* ssid = "Device-Northwestern";
 
 
 int status = WL_IDLE_STATUS;
-IPAddress server(129,105,10,218); 
+IPAddress server(129,105,209,246); 
 
 // Define the Pin Numbers
-#define TRIGGER_PIN 5
-#define ECHO_PIN 4
+#define TRIGGER_PIN 2
+#define ECHO_PIN 0
 
 WiFiClient client;
 
 void setup() {
- Serial.begin(115200); Serial.println();
+ Serial.begin(115200); Serial.print("beginning");
  pinMode(TRIGGER_PIN, OUTPUT); // Set trigger pin as output
  pinMode(ECHO_PIN, INPUT); // Set echo pin as input
  // pinMode(BUILTIN_LED, OUTPUT);
@@ -47,7 +47,6 @@ void loop() {
     // Make a HTTP request:
     client.println(payload);
   }
-  delay(100);
 }
 
 void wifiConnect() {
