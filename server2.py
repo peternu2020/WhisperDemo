@@ -17,7 +17,7 @@ import speech_recognition as sr
 
 from audio_processing import *
 
-audios = ["crucifixion1.wav"]
+audios = ["audios/crucifixion1.wav"]
 
 # from server.py
 language = 'en'
@@ -45,7 +45,7 @@ def get_distance():
                         sound_played = True
                         while True:
                             record_qst()
-                            qst = get_qst("question.wav")
+                            qst = get_qst("audios/question.wav")
                             print(qst)
                             if qst is None:
                                 sound_played = False
@@ -53,5 +53,4 @@ def get_distance():
                             play_answer(qst)
                             
        
-get_distance()
-
+#get_distance()

@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-
 import socket
 import json
 import requests
 import time
 import pygame
 from gtts import gTTS
-
-#from walexa
 from difflib import SequenceMatcher
 import sys
 import math
@@ -18,156 +15,15 @@ import pyaudio
 import wave
 import speech_recognition as sr
 
-audios = ["cat1.mp3", "cat2.mp3", "cat3.mp3"]
-last_qst = ""
-class obj:
-    def __init__(self, name):
-        self.name = name
-        self.who = None
-        self.where = None 
-        self.what = None 
-        self.why = None 
-        self.when = None 
+from audio_processing import *
 
-    def get_ans(self, qst):
-        qst = qst.lower()
-        ans = ""
-        if "who" in qst:
-                ans = self.who
-        elif "where" in qst:
-                ans = self.where
-        elif "what" in qst:
-                ans = self.what
-        elif "why" in qst:
-                ans = self.why
-        elif "when" in qst:
-                ans= self.when
-        else:
-                ans = "I don't understand"
-        return ans
-    def get_second_ans(self, qst):
-        qst = qst.lower()
-        ans = ""
-        if "who" in qst:
-                ans = self.who2
-        elif "where" in qst:
-                ans = self.where2
-        elif "what" in qst:
-                ans = self.what2
-        elif "why" in qst:
-                ans = self.why2
-        elif "when" in qst:
-                ans= self.when2
-        else:
-                ans = "no further information"
-        return ans        
+audios = ["audios/cat1.wav"]
 
-objects = []
-def initialize_everything():
-    catobj = obj(name='the cat')
-    catobj.who='The cat was created by Hyun Jung Jun  an art student at Northwestern University'
-    catobj.who2 = 'Northwestern University offers Masters degrees in Art Theory and practice, this is one of the masters projects.'
-    catobj.what = 'The cat is a flashe  linen  thread piece. Flashe is a vinyl-based  which can be used to create paintings on various mediums  such as linen and thread.'
-    catobj.what2 = 'Flashe is a type of pigment that can be diluted with water. It is similar to acrylic paint but less thick. The material is linen, it is thinner than canvas.'
-    catobj.where = 'The cat was created in Evanston  IL'
-    catobj.where2 = 'The cat image was done specifically at Northwestern University'
-    catobj.why = 'The cat was created for a thesis project'
-    catobj.why2 = 'Northwestern University offers Masters degrees in Art Theory and practice, this is one of the masters projects.'
-    catobj.when = 'The cat was created in 2019'
-    catobj.when2 = 'The cat was completed winter quarter and put on display in the spring'
-    objects.append(catobj)
-
-initialize_everything()
 # from server.py
 language = 'en'
 
-HOST = '129.105.10.137'  # Standard loopback interface address (localhost)
+HOST = '10.0.0.123'  # Standard loopback interface address (localhost)
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
-
-         
-
-def play_sound(fname):
-    pygame.init()
-    pygame.mixer.init()
-    pygame.mixer.music.load(fname)
-    print("playing", fname)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy() == True:
-        continue
-    print("done playing", fname)
-
-def play_piece_audios(audios):
-    for audio in audios:
-        play_sound(audio)
-
-def record_qst():
-    FORMAT = pyaudio.paInt16
-    CHANNELS = 1
-    RATE = 32000
-    CHUNK = 1024
-    RECORD_SECONDS = 8
-    WAVE_OUTPUT_FILENAME ="question.wav"
-    
-    audio = pyaudio.PyAudio()
-    
-    # start Recording
-    stream = audio.open(format=FORMAT, channels=CHANNELS,
-                    rate=RATE, input=True,
-                    frames_per_buffer=CHUNK)
-    print("recording...")
-    frames = []
-    
-    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-        data = stream.read(CHUNK)
-        frames.append(data)
-    print("finished recording")
-    
-    
-    # stop Recording
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
-    
-    waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-    waveFile.setnchannels(CHANNELS)
-    waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-    waveFile.setframerate(RATE)
-    waveFile.writeframes(b''.join(frames))
-    waveFile.close()
-
-def get_qst(fname):
-    audio_f = sr.AudioFile(fname)
-    r = sr.Recognizer()
-    with audio_f as source:
-        audio = r.record(source)
-    try:
-        qst = r.recognize_google(audio)
-    except sr.UnknownValueError:
-        qst = None
-    return qst
-
-def create_answer(qst):
-    answ = "I don't understand"
-    for elem in objects:
-        if elem.name in qst.lower():
-            print(elem.name)
-            answ = elem.get_ans(qst.lower())
-    print(answ)
-    save_answer(answ)
-
-def create_second_response(qst):
-    answ = "I have no further information"
-    for elem in objects:
-        if elem.name in qst.lower():
-            print(elem.name)
-            answ = elem.get_second_ans(qst.lower())
-    print(answ)
-    save_answer(answ)
-
-def save_answer(answ):
-    myobj = gTTS(text=answ, lang=language, slow=False) 
-    myobj.save("answer.mp3") 
-    play_sound("answer.mp3")
 
 def get_distance():
     sound_played = False
@@ -189,17 +45,12 @@ def get_distance():
                         sound_played = True
                         while True:
                             record_qst()
-                            qst = get_qst("question.wav")
+                            qst = get_qst("audios/question.wav")
                             print(qst)
                             if qst is None:
                                 sound_played = False
                                 break
-                            if "more" in qst.lower():
-                                if last_qst != "":
-                                    create_second_response(last_qst)
-                            elif "cat" in qst.lower():
-                                create_answer(qst)
-                            last_qst = qst
+                            play_answer(qst)
                             
        
-get_distance()
+#get_distance()
