@@ -8,7 +8,7 @@ import uuid
 def retrieve_audio_texts():
     piId = hex(uuid.getnode())
     print(piId)
-    # audio_texts = retrieveByRasberryPiId(piId)
+    # audio_ids, audio_texts = retrieveByRasberryPiId(piId)
     audio_ids, audio_texts = [0,1,2,3,4], [
         "The crucifixion was created in the 14th century  circa 1350-1359 experts are not sure exactly when but it is estimated that it was around 1352",
         "honestly this did not stand out much compared to the many depictions of the crucifixion the only original part was the swan in the birds overlooking it as Christ is supposed to",
