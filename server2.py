@@ -22,7 +22,7 @@ audios = ["crucifixion1.wav"]
 # from server.py
 language = 'en'
 
-HOST = '129.105.10.218'  # Standard loopback interface address (localhost)
+HOST = '10.0.0.123'  # Standard loopback interface address (localhost)
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 
 def get_distance():
@@ -53,5 +53,5 @@ def get_distance():
                             play_answer(qst)
                             
        
-# get_distance()
+get_distance()
 
