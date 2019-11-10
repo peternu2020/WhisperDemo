@@ -3,7 +3,7 @@ from gensim import corpora
 from gensim import models
 from gensim import similarities
 import uuid
-
+Played_audios = set()
 # Retrieve all (id,audio_text) for all audios on the current pi.
 def retrieve_audio_texts():
     piId = hex(uuid.getnode())
@@ -45,8 +45,33 @@ def create_lsi_model(texts):
     lsi = models.LsiModel(corpus, id2word=dictionary, num_topics=2)
     return dictionary, corpus, lsi
 
+
+def find_unique_audio(sims,TOTAL_AUDIOS):
+  #if len(Played_audios) == TOTAL_AUDIOS:
+    #acknowledge repetition
+    #return "repeated_audio.mp4" #says something like "Would you like to hear about this again?"
+
+  #most similar id
+  id = audio_ids[sims[0][0]]
+
+
+  for idx in sims:
+    #extract next most similar id
+    id = audio_ids[sims[idx][idx]] #move to next similar audio, not sure why it's a 2d vector
+
+    if id not in Played_audios:
+        return id
+
+    #error("all audios have been played")
+
+
+  #id is now the most similar, non-repeated audio
+
+
+
 def get_best_answer_audio_id(question):
     # Retrieve all texts related to the current art piece.
+
     audio_ids, audio_texts = retrieve_audio_texts()
     texts = clean_audio_texts(audio_texts)
     dictionary, corpus, lsi = create_lsi_model(texts)
@@ -56,10 +81,14 @@ def get_best_answer_audio_id(question):
     index.save('/tmp/deerwester.index')
     index = similarities.MatrixSimilarity.load('/tmp/deerwester.index')
     sims = index[vec_lsi]  # perform a similarity query against the corpus
+    TOTAL_AUDIOS = sims.len()
     sims = sorted(enumerate(sims), key=lambda item: -item[1])
+    id = find_unique_audio(sims,TOTAL_AUDIOS)
+    Played_audios.add(id) #marks audio as played
+
     #print(sims)
     # for i, s in sims:
     #     print(s, audio_texts[i])
-    return audio_ids[sims[0][0]]
+
 
 # get_best_answer_audio_id("what strikes you about it?")
