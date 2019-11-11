@@ -3,6 +3,9 @@ from gensim import corpora
 from gensim import models
 from gensim import similarities
 import uuid
+import nltk
+from nltk.corpus import stopwords
+
 
 # Retrieve all (id,audio_text) for all audios on the current pi.
 def retrieve_audio_texts():
@@ -22,8 +25,9 @@ def retrieve_audio_texts():
 def clean_audio_texts(documents):
     # remove common words and tokenize
     stoplist = set('for a of the and to in'.split())
+    stop_words_nltk = set(stopwords.words('english'))
     texts = [
-        [word for word in document.lower().split() if word not in stoplist]
+        [word for word in document.lower().split() if word not in stop_words_nltk]
         for document in documents
     ]
 
